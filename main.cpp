@@ -3,6 +3,7 @@
 #include <ast/atom.hpp>
 #include <ast/binop.hpp>
 #include <ast/reducers/add.hpp>
+#include <ast/reducers/sub.hpp>
 
 using namespace ast;
 
@@ -28,4 +29,11 @@ int main()
               << "x + (x + y): " << sum_x_xy() << "\n"
               << "(x + y) + (x + y): " << sum_xy_xy() << "\n"
               << "((x + y) + (x + y)) + (x + (x + y)): " << sum_xy_xy__x_xy() << "\n";
+
+    auto sub_xy = binop<decltype(x), decltype(y), sub_tag, reducers::sub{}>{x, y};
+
+    auto sum_x_sub_xy = binop<decltype(x), decltype(sub_xy), sub_tag, reducers::add{}>{x, sub_xy};
+
+    std::cout << "x - y: " << sub_xy() << "\n"
+              << "x + (x - y): " << sum_x_sub_xy() << "\n";
 }
