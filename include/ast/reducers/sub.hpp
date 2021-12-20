@@ -5,6 +5,7 @@
 
 namespace ast::reducers
 {
+    struct sub_tag {};
     struct sub
     {
         template <
